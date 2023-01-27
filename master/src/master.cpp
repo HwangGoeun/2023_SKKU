@@ -1,9 +1,25 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 
+using namespace std;
+
+string slave_msg = "";
+string drive = "drive";
+string obstacle = "obstacle";
+
+std_msgs::String master_topic_msg;
+
 // topic from slave
 void slave_callback(const std_msgs::String::Ptr& sub_msg) {
+    slave_msg = sub_msg->data.c_str();
     ROS_INFO("Master subscribe : %s", sub_msg->data.c_str());
+
+    if(slave_msg == "obstacle") {
+        master_topic_msg.data = obstacle;
+    }
+    if(slave_msg == "drive") {
+        master_topic_msg.data = drive;
+    }
 }
 
 int main(int argc, char **argv) {
@@ -12,28 +28,15 @@ int main(int argc, char **argv) {
 
     ros::Publisher pub_master = nh.advertise<std_msgs::String>("/master_topic", 1);
     ros::Subscriber sub_master = nh.subscribe("/slave_topic", 1, slave_callback);
-    ros::Rate loop_rate(1000);
+    ros::Rate loop_rate(10);
 
-    std_msgs::String master_topic_msg;
-    std::string drive = "drive";
-    std::string lidar = "lidar";
     master_topic_msg.data = drive;
 
-    int count = 0;
-
     while(ros::ok()) {
-        if (count % 5 == 0) {
-            master_topic_msg.data = lidar;
-        } else {
-            master_topic_msg.data = drive;
-        }
-        pub_master.publish(master_topic_msg);
-
-        count += 1;
-
         ros::spinOnce();
-
         loop_rate.sleep();
+
+        pub_master.publish(master_topic_msg);
     }
 
     return 0;
