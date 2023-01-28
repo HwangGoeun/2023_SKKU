@@ -1,2 +1,3 @@
-drive control -> autonomous mode /n
+drive control -> autonomous mode
+
 keyboard -> manual
