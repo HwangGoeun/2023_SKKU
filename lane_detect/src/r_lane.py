@@ -40,6 +40,8 @@ direction = "GO"
 
 while True : 
     
+    direction_change = direction
+    
     ret, frame = cap.read()
 
     max_x = width - min_x
@@ -153,7 +155,8 @@ while True :
     cv2.putText(frame, direction, (290,140), cv2.FONT_ITALIC, 1, (0,0,255), 2)
     cv2.imshow("Ground Truth",frame)
 
-    direction_pub.publish(direction)
+    if direction_change != direction :
+        direction_pub.publish(direction)
 
 
     k = cv2.waitKey(30) & 0xff   # ESC누르면 종료
