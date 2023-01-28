@@ -3,14 +3,14 @@
 #include <std_msgs/String.h>
 
 ///////////////////////////////////////////
-int motorA1_1 = 1;
-int motorA1_2 = 2;
+int motorA1_1 = 3;
+int motorA1_2 = 4;
 
-int motorB1_1 = 3;
-int motorB1_2 = 4;
+int motorB1_1 = 5;
+int motorB1_2 = 6;
 
-int motorB2_1 = 5;
-int motorB2_2 = 6;
+int motorB2_1 = 8;
+int motorB2_2 = 9;
 ///////////////////////////////////////////
 
 ros::NodeHandle nh;
@@ -18,44 +18,53 @@ String motor_run;
 
 void move_go(){
   
-  motor_backward(motorB1_1,motorB1_2,100);
-  motor_forward(motorB2_1,motorB2_2,100);
+  motor_backward(motorB1_1,motorB1_2,70);
+  delay(100);
+  motor_forward(motorB2_1,motorB2_2,70);
+  delay(100);
+  
+  motor_backward(motorA1_1,motorA1_2,90);
+  delay(100);
+  motor_hold(motorA1_1,motorA1_2);
+  delay(100);
 
-  motor_backward(motorA1_1,motorA1_2,255);
-  delay(300);
-  motor_forward(motorA1_1,motorA1_2,255);
-  delay(300);
 }
 
 void move_left(){
   
-  motor_backward(motorB1_1,motorB1_2,100);
-  motor_forward(motorB2_1,motorB2_2,100);
+  motor_backward(motorB1_1,motorB1_2,70);
+  delay(100);
+  motor_forward(motorB2_1,motorB2_2,70);
+  delay(100);
   
-  motor_backward(motorA1_1,motorA1_2,255);
-  delay(300);
   motor_forward(motorA1_1,motorA1_2,255);
-  delay(300);
-
+  delay(100);
+  //motor_hold(motorA1_1,motorA1_2);
+  //delay(100);
 }
 
 void move_right(){
   
-  motor_forward(motorB1_1,motorB1_2,100);
-  motor_forward(motorB2_1,motorB2_2,100);
-
+  motor_backward(motorB1_1,motorB1_2,70);
+  delay(100);
+  motor_forward(motorB2_1,motorB2_2,70);
+  delay(100);
+  
   motor_backward(motorA1_1,motorA1_2,255);
-  delay(300);
-  motor_forward(motorA1_1,motorA1_2,255);
-  delay(300);
+  delay(100);
+  //motor_hold(motorA1_1,motorA1_2);
+  //delay(100);
 }
 
 void move_stop(){
   
   motor_hold(motorB1_1,motorB1_2);
+  delay(100);
   motor_hold(motorB2_1,motorB2_2);
+  delay(100);
 
   motor_hold(motorA1_1,motorA1_2);
+  delay(100);
 }
 
 void direction_cb(const std_msgs::String& msg) {
