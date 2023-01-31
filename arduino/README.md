@@ -17,4 +17,10 @@ $ sudo apt-get install ros-melodic-teleop-twist-keyboard
 
 
 $ rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=57600
+  
+  
+manual 모드 실행시 추가로 실행해줘야되는 launch 파일
+  
+$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+
 
