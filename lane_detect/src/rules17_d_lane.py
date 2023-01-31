@@ -55,9 +55,6 @@ while True :
     pts = pts.reshape((-1,1,2))
     cv2.polylines(frame, [pts],True, (255, 0, 0), 2)
     
-    cv2.putText(frame, direction, (290,140), cv2.FONT_ITALIC, 1, (0,255,0), 2)
-    cv2.imshow("1_polylines",frame)
-    
     
     matSrc = np.float32(limited_polylines_list)
     matDst = np.float32([[0,height], [width,height], [width,0], [0,0]])
