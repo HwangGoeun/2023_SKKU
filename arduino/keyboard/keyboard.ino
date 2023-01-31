@@ -17,96 +17,98 @@ float move2;
 
 
 ///////////////////////////////////////////////
-const int motorA1_1 = 1;
-const int motorA1_2 = 2;
+const int motorA1_1 = 3;
+const int motorA1_2 = 4;
 
-const int motorB1_1 = 3;
-const int motorB1_2 = 4;
+const int motorB1_1 = 5;
+const int motorB1_2 = 6;
 
-const int motorB2_1 = 5;
-const int motorB2_2 = 6;
+const int motorB2_1 = 8;
+const int motorB2_2 = 9;
 
 ////////////////////////////////////////////////
-void front()
-{
-  motor_backward(motorB1_1,motorB1_2,100);
-  motor_forward(motorB2_1,motorB2_2,100);
 
-  motor_backward(motorA1_1,motorA1_2,255);
-  delay(300);
-  motor_forward(motorA1_1,motorA1_2,255);
-  delay(300);
-    
+void front()  //press key i (I)
+{
+  motor_backward(motorB1_1,motorB1_2,70);
+  delay(100);
+  motor_forward(motorB2_1,motorB2_2,70);
+  delay(100);
+ 
+  motor_backward(motorA1_1,motorA1_2,90);
+  delay(100);
+  motor_hold(motorA1_1,motorA1_2);
+  delay(100);  
 }
 
-void back()
+void back()   //press key , (, 쉼표 맞음)
 {
-  motor_forward(motorB1_1,motorB1_2,100);
-  motor_backward(motorB2_1,motorB2_2,100);
-
   motor_backward(motorA1_1,motorA1_2,255);
-  delay(300);
+  delay(100);
   motor_forward(motorA1_1,motorA1_2,255);
-  delay(300); 
-}
-void left()
-{
-  
-  motor_backward(motorB1_1,motorB1_2,100);
-  motor_forward(motorB2_1,motorB2_2,100);
-  
-  motor_backward(motorA1_1,motorA1_2,255);
-  delay(300);
-  motor_forward(motorA1_1,motorA1_2,255);
-  delay(300);
-
+  delay(100); 
 }
 
-void right()
-{
-   
-  motor_forward(motorB1_1,motorB1_2,100);
-  motor_forward(motorB2_1,motorB2_2,100);
-
-  motor_backward(motorA1_1,motorA1_2,255);
-  delay(300);
+void left()   //press key j (J)
+{ 
+  motor_backward(motorB1_1,motorB1_2,70);
+  delay(100);
+  motor_forward(motorB2_1,motorB2_2,70);
+  delay(100);
   motor_forward(motorA1_1,motorA1_2,255);
-  delay(300);
-  
+  delay(100);  
 }
 
-void die()
+void right()    //press key l (L)
+{ 
+  motor_forward(motorB1_1,motorB1_2,70);
+  delay(100);
+  motor_forward(motorB2_1,motorB2_2,70);
+  delay(100);
+  motor_backward(motorA1_1,motorA1_2,255);
+  delay(100);
+}
+
+void die()    //press key k or s (K or S)
 {
   motor_hold(motorB1_1,motorB1_2);
+  delay(100);
   motor_hold(motorB2_1,motorB2_2);
-
+  delay(100);
   motor_hold(motorA1_1,motorA1_2);
+  delay(100);
 }
 
 void callback(const geometry_msgs::Twist& cmd_vel)
 {
   move1 = cmd_vel.linear.x;
   move2 = cmd_vel.angular.z;
+  
   if (move1 > 0 && move2 == 0)
   {
     front();
   }
+  
   else if (move1 > 0 && move2 > 0 )
   {
     left();
   }
+  
   else if (move1 > 0 && move2 < 0 )
   {
     right();
   }
+  
   else if (move1 < 0)
   {
     back();
   }
+  
   else
   {
     die();
   }
+  
 }
 
 ros::Subscriber <geometry_msgs::Twist> sub("/cmd_vel", callback);
