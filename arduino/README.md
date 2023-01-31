@@ -6,7 +6,8 @@ keyboard -> manual
 
 <teleop_key>
 
-$ sudo apt-get install ros-noetic-teleop-twist-keyboard   또는   
+$ sudo apt-get install ros-noetic-teleop-twist-keyboard   
+또는   
 $ sudo apt-get install ros-melodic-teleop-twist-keyboard
 
 
