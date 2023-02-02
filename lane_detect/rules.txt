@@ -1,0 +1,21 @@
+mid=bk
+-left=bk/right=bk 검검검검 STOP
+-left=bk/right=wh 검검검흰 LEFT
+-left=wh/right=bk 흰검검검 RIGHT
+-left=wh/right=wh 흰검검흰 GO
+
+mid=wh
+-left=bk/mid_left=bk/mid_right=bk/right=bk 검검검검 STOP
+-left=bk/mid_left=bk/mid_right=wh/right=bk 검검흰검 LEFT
+-left=bk/mid_left=bk/mid_right=wh/right=wh 검검흰흰 LEFT
+-left=bk/mid_left=wh/mid_right=bk/right=bk 검흰검검 RIGHT
+-left=bk/mid_left=wh/mid_right=bk/right=wh 검흰검흰 RIGHT
+-left=bk/mid_left=wh/mid_right=wh/right=bk 검흰흰검 STOP
+-left=bk/mid_left=wh/mid_right=wh/right=wh 검흰흰흰 LEFT
+-left=wh/mid_left=bk/mid_right=wh/right=bk 흰검흰검 LEFT
+-left=wh/mid_left=bk/mid_right=wh/right=wh 흰검흰흰 LEFT
+-left=wh/mid_left=wh/mid_right=bk/right=bk 흰흰검검 RIGHT
+-left=wh/mid_left=wh/mid_right=bk/right=wh 흰흰검흰 RIGHT
+-left=wh/mid_left=wh/mid_right=wh/right=bk 흰흰흰검 RIGHT
+-left=wh/mid_left=wh/mid_right=wh/right=wh 흰흰흰흰 STOP
+
