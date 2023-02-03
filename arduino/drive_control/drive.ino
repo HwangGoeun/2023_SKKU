@@ -2,6 +2,14 @@
 #include <ros.h>
 #include <std_msgs/String.h>
 
+//////////////////////////////////
+
+int left_motor_speed = 80; 
+int right_motor_speed = 80;
+int steering = 90;
+int left_steering = 255;
+int right_steering = 255;
+
 ///////////////////////////////////////////
 int motorA1_1 = 3;
 int motorA1_2 = 4;
@@ -18,42 +26,38 @@ String motor_run;
 
 void move_go(){
   
-  motor_backward(motorB1_1,motorB1_2,70);
+  motor_backward(motorB1_1,motorB1_2,left_motor_speed);
   delay(100);
-  motor_forward(motorB2_1,motorB2_2,70);
+  motor_forward(motorB2_1,motorB2_2, right_motor_speed);
   delay(100);
-  
-  motor_backward(motorA1_1,motorA1_2,90);
+ 
+  motor_backward(motorA1_1,motorA1_2,steering);
   delay(100);
   motor_hold(motorA1_1,motorA1_2);
-  delay(100);
+  delay(100);  
 
 }
 
 void move_left(){
   
-  motor_backward(motorB1_1,motorB1_2,70);
+  motor_backward(motorB1_1,motorB1_2,left_motor_speed);
   delay(100);
-  motor_forward(motorB2_1,motorB2_2,70);
+  motor_forward(motorB2_1,motorB2_2, right_motor_speed);
   delay(100);
-  
-  motor_forward(motorA1_1,motorA1_2,255);
-  delay(100);
-  //motor_hold(motorA1_1,motorA1_2);
-  //delay(100);
+  motor_forward(motorA1_1,motorA1_2,left_steering);
+  delay(100);  
 }
 
 void move_right(){
   
-  motor_backward(motorB1_1,motorB1_2,70);
+  motor_forward(motorB1_1,motorB1_2,left_motor_speed);
   delay(100);
-  motor_forward(motorB2_1,motorB2_2,70);
+  motor_forward(motorB2_1,motorB2_2,right_motor_speed);
   delay(100);
   
-  motor_backward(motorA1_1,motorA1_2,255);
+  motor_backward(motorA1_1,motorA1_2,right_steering);
   delay(100);
-  //motor_hold(motorA1_1,motorA1_2);
-  //delay(100);
+  
 }
 
 void move_stop(){
