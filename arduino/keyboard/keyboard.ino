@@ -12,6 +12,16 @@
 ros::NodeHandle nh;
 geometry_msgs::Twist msg;
 
+///////////////
+
+int left_motor_speed = 80; 
+int right_motor_speed = 80;
+int steering = 90;
+int left_steering = 255;
+int right_steering = 255;
+
+/////////////
+
 float move1;
 float move2;
 
@@ -30,12 +40,12 @@ const int motorB2_2 = 9;
 
 void front()  //press key i (I)
 {
-  motor_backward(motorB1_1,motorB1_2,70);
+  motor_backward(motorB1_1,motorB1_2,left_motor_speed);
   delay(100);
-  motor_forward(motorB2_1,motorB2_2,70);
+  motor_forward(motorB2_1,motorB2_2, right_motor_speed);
   delay(100);
  
-  motor_backward(motorA1_1,motorA1_2,90);
+  motor_backward(motorA1_1,motorA1_2,steering);
   delay(100);
   motor_hold(motorA1_1,motorA1_2);
   delay(100);  
@@ -43,29 +53,29 @@ void front()  //press key i (I)
 
 void back()   //press key , (, 쉼표 맞음)
 {
-  motor_backward(motorA1_1,motorA1_2,255);
+  motor_backward(motorB2_1,motorB2_2,left_motor_speed);
   delay(100);
-  motor_forward(motorA1_1,motorA1_2,255);
+  motor_forward(motorB1_1,motorB1_2,right_motor_speed);
   delay(100); 
 }
 
 void left()   //press key j (J)
 { 
-  motor_backward(motorB1_1,motorB1_2,70);
+  motor_backward(motorB1_1,motorB1_2,left_motor_speed);
   delay(100);
-  motor_forward(motorB2_1,motorB2_2,70);
+  motor_forward(motorB2_1,motorB2_2, right_motor_speed);
   delay(100);
-  motor_forward(motorA1_1,motorA1_2,255);
+  motor_forward(motorA1_1,motorA1_2,left_steering);
   delay(100);  
 }
 
 void right()    //press key l (L)
 { 
-  motor_forward(motorB1_1,motorB1_2,70);
+  motor_forward(motorB1_1,motorB1_2,left_motor_speed);
   delay(100);
-  motor_forward(motorB2_1,motorB2_2,70);
+  motor_forward(motorB2_1,motorB2_2,right_motor_speed);
   delay(100);
-  motor_backward(motorA1_1,motorA1_2,255);
+  motor_backward(motorA1_1,motorA1_2,right_steering);
   delay(100);
 }
 
