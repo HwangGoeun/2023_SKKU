@@ -1,23 +1,19 @@
-#! /usr/bin/env python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-import rospy
-from std_msgs.msg import String
-
 import cv2
 import time
 import enum
 import numpy as np 
 import random
+import rospy
+from std_msgs.msg import String
 
-master_msg = ""
-
-def drive():
-    print("drive is running!")
-    direction_pub = rospy.Publisher('direction', String, queue_size=1)
+def double_lane():
+    direction_pub = rospy.Publisher('camera_direction', String, queue_size=1)
 
     width = 640
     height = 360
+
 
     cap = cv2.VideoCapture(0)              
     cap.set(3,width)           #크롭사이즈
@@ -36,12 +32,15 @@ def drive():
     cap.set(cv2.CAP_PROP_SATURATION,saturation)
     cap.set(cv2.CAP_PROP_GAIN,gain)
 
+
+
     min_x = 250               # 인식범위 사이즈
     min_y = 150
     
     direction = "GO"
 
-    while True: 
+    while True : 
+        
         ret, frame = cap.read()
 
         max_x = width - min_x
@@ -57,6 +56,7 @@ def drive():
         cv2.putText(frame, direction, (290,140), cv2.FONT_ITALIC, 1, (0,255,0), 2)
         cv2.imshow("1_polylines",frame)
         
+        
         matSrc = np.float32(limited_polylines_list)
         matDst = np.float32([[0,height], [width,height], [width,0], [0,0]])
         matAffine = cv2.getPerspectiveTransform(matSrc,matDst)
@@ -66,6 +66,7 @@ def drive():
         
         dst_retval, dst_binaryzation = cv2.threshold(gray_frame, DETECT_VALUE, 255, cv2.THRESH_BINARY)  
         dst_binaryzation = cv2.erode(dst_binaryzation, None, iterations=1)   
+        
 
         cv2.imshow("dst_binaryzation",dst_binaryzation)              #차선인식
         
@@ -90,7 +91,7 @@ def drive():
 
         # print("LEFT :", left,          "MID :", mid,          "RIGHT : ", right)
 
-        #구간에 안들어가는 곳 체크하기
+    #구간에 안들어가는 곳 체크하기
 
         if mid < 50000:     #가운데가 검은색일때 : 직진
             if left > 10000000 and right > 10000000 :   #직진
@@ -125,40 +126,17 @@ def drive():
 
         direction_pub.publish(direction)
 
-        if master_msg != "drive":             
-            print("------------[SHUT DOWN]------------")
 
-            Stop()
-            cap.release()
+        k = cv2.waitKey(30) & 0xff   # ESC누르면 종료
+        if k == 27: 
+            break
 
-            exit()
+    print("------------[SHUT DOWN]------------")
+
+    Stop()
+    cap.release()
+
+    exit()
 
 
-def master_callback(sub_msg):
-    print("callback is running")
-    master_msg = sub_msg.data
-
-    print("master_msg : " + master_msg)
-    if master_msg == "drive":
-        drive()
-    else:
-        exit()
-
-def main():
-    rospy.init_node('double_lane', anonymous=True)
-
-    print("main is running")
-    
-    rospy.Subscriber('/master_topic', String, master_callback)
-    
-    rate = rospy.Rate(100)
-
-    while not rospy.is_shutdown():
-        rospy.spin()
-        rate.sleep()
-
-if __name__ == '__main__':
-    try:
-        main()
-    except rospy.ROSInterruptException:
-        pass
+double_lane()

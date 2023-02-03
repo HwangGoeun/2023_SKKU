@@ -18,30 +18,43 @@ def main():
     # pub_lidar = rospy.Publisher('/_topic', String, queue_size=1)
     
     # Publisher from lidar to arduino
-    direction_pub = rospy.Publisher('direction', String, queue_size=1)
+    direction_pub = rospy.Publisher('lidar_direction', String, queue_size=1)
     direction = "GO"
 
-    # LiDAR sensing
     env = LiDAR.libLIDAR('/dev/ttyUSB0')
     env.init()
-    
+
     env.getState()
 
+    count = 0
+
     for scan in env.scanning():
-        left = env.getAngleDistanceRange(scan, 0, 30, 0, 500)
-        go = env.getAngleDistanceRange(scan, 31, 150, 0, 300)
-        right = env.getAngleDistanceRange(scan, 151, 180, 0, 1000)
+        count += 1
+
+        left = env.getAngleDistanceRange(scan, 330, 360, 800, 1000)
+        go = env.getAngleDistanceRange(scan, 0, 60, 0, 400)
+        right = env.getAngleDistanceRange(scan, 61, 180, 0, 550)
+        # go2 = env.getAngleDistanceRange(scan, 61, 120, 0, 400)
 
         if len(left):
+            print("left")
             direction = "LEFT"
         else:
             if len(go):
+                print("go")
                 direction = "GO"
             else:
                 if len(right):
+                    print("right")
                     direction = "RIGHT"
                 else:
-                    direction = ""
+                    direction = "NO"
+                    print("")
+
+
+        # if count == 500:
+        #     env.stop()
+        #     break
 
         # 
         # 
@@ -54,10 +67,10 @@ def main():
         #     else:
         #         if len(right):
         #             direction = "RIGHT"
-        if pub_old != direction:
-            direction_pub.publish(direction)
+        # if pub_old != direction:
+        direction_pub.publish(direction)
 
-        pub_old = direction        
+        # pub_old = direction        
 
     # while no_obstacle : 
     #     for scan in env.scanning():
@@ -76,5 +89,4 @@ if __name__ == '__main__':
     try:
         main()
     except rospy.ROSInterruptException:
-        env.stop()
         pass
