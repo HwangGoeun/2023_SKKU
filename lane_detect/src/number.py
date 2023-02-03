@@ -10,8 +10,8 @@ from std_msgs.msg import String
 
 direction_pub = rospy.Publisher('direction', String, queue_size=1)
 
-width = 1280
-height = 720
+width = 640
+height = 480
 
 
 cap = cv2.VideoCapture(2)              
@@ -88,6 +88,7 @@ while True :
     right = int(np.sum(histogram[int(3*histogram_length/4):]))
 
 
+
     
     rospy.init_node('direction_publisher')
 
@@ -95,17 +96,17 @@ while True :
 
 #구간에 안들어가는 곳 체크하기
     # if right < 1000 :  ### 오른쪽에 차선이 안보이면 => 우회전
-    #     direction = "RIGHT"
+    #     direction = 4
 
     # else :           ### 오른쪽에 차선보임
     #     if mid_left < 1000 :   ### mid_left에 차선 안보임 => 직진
-    #         direction = "GO"
+    #         direction = 1
         
     #     else :                 ### mid_left에 차선 보임 => 좌회전
-    #         direction = "LEFT
+    #         direction = 2
 
     # if left > 500000 :   ### left에 흰색 많이 보임 => 정지
-    #     direction = "STOP"
+    #     direction = 10
     if mid < 50000 : #x검검x
         if left < 50000 and right < 50000: #검검검검
             direction = "GO"
@@ -145,7 +146,17 @@ while True :
     cv2.putText(frame, direction, (width/2,height/2), cv2.FONT_ITALIC, 1, (0,0,255), 2)
     cv2.imshow("Ground Truth",frame)
     if direction_change != direction :
+        if direction_change == "LEFT" and direction == "GO" :
+            direction = "RIGHT"
+        elif direction_change == "RIGHT" and direction == "GO" :
+            direction = "LEFT"
         direction_pub.publish(direction)
+    # elif direction == 10 :
+    #     direction = 10
+    # else :
+    #     direction = 10
+
+        
 
 
     k = cv2.waitKey(30) & 0xff   # ESC누르면 종료
