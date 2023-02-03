@@ -10,8 +10,8 @@ from std_msgs.msg import String
 
 direction_pub = rospy.Publisher('direction', String, queue_size=1)
 
-width = 640
-height = 360
+width = 1280
+height = 720
 
 
 cap = cv2.VideoCapture(2)              
@@ -23,7 +23,7 @@ brightness=10
 contrast=10
 saturation=10
 gain=10
-DETECT_VALUE = 200   #상대밝기
+DETECT_VALUE = 250   #상대밝기
 #----------------------------
 
 cap.set(cv2.CAP_PROP_BRIGHTNESS,brightness)    #카메라조도세팅
@@ -33,7 +33,7 @@ cap.set(cv2.CAP_PROP_GAIN,gain)
 
 
 
-min_x = 50        # 인식범위 사이즈
+min_x = 250        # 인식범위 사이즈
 min_y = 200
   
 direction = "GO"
