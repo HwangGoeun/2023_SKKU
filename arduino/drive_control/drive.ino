@@ -4,8 +4,8 @@
 
 //////////////////////////////////
 
-int left_motor_speed = 80; 
-int right_motor_speed = 80;
+int left_motor_speed = 100; 
+int right_motor_speed = 100;
 int steering = 90;
 int left_steering = 255;
 int right_steering = 255;
@@ -48,7 +48,7 @@ void move_left(){
 
 void move_right(){
   
-  motor_forward(motorB1_1,motorB1_2,left_motor_speed);
+  motor_backward(motorB1_1,motorB1_2,left_motor_speed);
   delay(100);
   motor_forward(motorB2_1,motorB2_2,right_motor_speed);
   delay(100);
