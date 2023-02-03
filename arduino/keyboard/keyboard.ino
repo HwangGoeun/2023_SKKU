@@ -47,8 +47,6 @@ void front()  //press key i (I)
  
   motor_backward(motorA1_1,motorA1_2,steering);
   delay(100);
-  motor_hold(motorA1_1,motorA1_2);
-  delay(100);  
 }
 
 void back()   //press key , (, 쉼표 맞음)
