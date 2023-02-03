@@ -33,8 +33,6 @@ void move_go(){
  
   motor_backward(motorA1_1,motorA1_2,steering);
   delay(100);
-  motor_hold(motorA1_1,motorA1_2);
-  delay(100);  
 
 }
 
