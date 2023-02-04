@@ -4,6 +4,7 @@
 <pre>
 <code>
 $ sudo chmod 777 /dev/ttyUSB0
+$ pip install rplidar-roboticia
 $ roslaunch master master.launch
 $ rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=57600
 </code>
