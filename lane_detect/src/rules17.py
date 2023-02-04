@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import cv2
 import time
@@ -15,7 +15,7 @@ height = 720
 min_x = 250             # 인식범위 사이즈
 min_y = 300
 
-cap = cv2.VideoCapture(2)              
+cap = cv2.VideoCapture(0)              
 cap.set(3,width)           #크롭사이즈
 cap.set(4,height)
 
@@ -62,9 +62,9 @@ while True :
     dst_retval, dst_binaryzation = cv2.threshold(gray_frame, DETECT_VALUE, 255, cv2.THRESH_BINARY)  
     dst_binaryzation = cv2.erode(dst_binaryzation, None, iterations=1)   
     
-    leftLine = cv2.line(dst_binaryzation, (width/4, 0), (width/4, height), (0, 255, 0), 2, cv2.LINE_AA)
-    midLine = cv2.line(dst_binaryzation, (2*width/4, 0), (2*width/4, height), (0, 255, 0), 2, cv2.LINE_AA)
-    rightLine = cv2.line(dst_binaryzation, (3*width/4, 0), (3*width/4, height), (0, 255, 0), 2, cv2.LINE_AA)
+    # leftLine = cv2.line(dst_binaryzation, (width/4, 0), (width/4, height), (0, 255, 0), 2, cv2.LINE_AA)
+    # midLine = cv2.line(dst_binaryzation, (2*width/4, 0), (2*width/4, height), (0, 255, 0), 2, cv2.LINE_AA)
+    # rightLine = cv2.line(dst_binaryzation, (3*width/4, 0), (3*width/4, height), (0, 255, 0), 2, cv2.LINE_AA)
     
     cv2.imshow("binaryzation",dst_binaryzation)              #차선인식
 
@@ -112,7 +112,7 @@ while True :
             else : #x검흰x
                 direction = "LEFT"
 
-    cv2.putText(frame, direction, (width/2,height/4), cv2.FONT_ITALIC, 1, (0,0,255), 2)
+    # cv2.putText(frame, direction, (width/2,height/4), cv2.FONT_ITALIC, 1, (0,0,255), 2)
     cv2.imshow("Ground Truth",frame)
     if direction_change != direction :
         direction_pub.publish(direction)
