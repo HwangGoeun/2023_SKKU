@@ -8,7 +8,7 @@ int left_motor_speed = 100;
 int right_motor_speed = 100;
 int steering = 90;
 int left_steering = 255;
-int right_steering = 255;
+int right_steering = 255; 
 
 ///////////////////////////////////////////
 int motorA1_1 = 3;
@@ -91,10 +91,21 @@ void direction_cb(const std_msgs::String& msg) {
   else if (motor_run == "GO"){
       move_go();
   }
+
+  else if (motor_run == "obstacle") {
+      move_left();
+      delay(10000);
+      move_go();
+      delay(20000);
+      move_right();
+      delay(10000);
+      move_go();
+  }
   
 }
 
 ros::Subscriber <std_msgs::String> sub("direction", &direction_cb);
+// ros::Subscriber <std_msgs::String> sub("color", &color_cb);
 
 void setup(){
   
@@ -111,6 +122,7 @@ void setup(){
 
   nh.initNode();
   nh.subscribe(sub);
+
   
 }
 
