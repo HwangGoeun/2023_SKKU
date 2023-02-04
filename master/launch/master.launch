@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="master" type="master" name="master"> </node>
+    <node pkg="lane_detect" type="rules17_d_lane.py" name="camera"> </node>
+    <node pkg="lidar" type="main.py" name="lidar"> </node>
+</launch>
