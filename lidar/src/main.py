@@ -18,7 +18,7 @@ def main():
     # pub_lidar = rospy.Publisher('/_topic', String, queue_size=1)
     
     # Publisher from lidar to arduino
-    direction_pub = rospy.Publisher('lidar_direction', String, queue_size=1)
+    direction_pub = rospy.Publisher('/direction', String, queue_size=1)
     direction = "GO"
 
     env = LiDAR.libLIDAR('/dev/ttyUSB0')
@@ -31,25 +31,28 @@ def main():
     for scan in env.scanning():
         count += 1
 
-        left = env.getAngleDistanceRange(scan, 330, 360, 800, 1000)
-        go = env.getAngleDistanceRange(scan, 0, 60, 0, 400)
-        right = env.getAngleDistanceRange(scan, 61, 180, 0, 550)
+        left = env.getAngleDistanceRange(scan, 330, 360, 0, 800)
+        # left2 = env.getAngleDistanceRange(scan, 0, 10, 600, 1000)
+
+        # go = env.getAngleDistanceRange(scan, 10, 60, 0, 400)
+        # right = env.getAngleDistanceRange(scan, 11, 150, 0, 550)
         # go2 = env.getAngleDistanceRange(scan, 61, 120, 0, 400)
 
         if len(left):
-            print("left")
-            direction = "LEFT"
+            # print("obstacle")
+            direction = "obstacle"
         else:
-            if len(go):
-                print("go")
-                direction = "GO"
-            else:
-                if len(right):
-                    print("right")
-                    direction = "RIGHT"
-                else:
-                    direction = "NO"
-                    print("")
+            direction = "GO"    # have to change "NO"
+            # if len(right):
+            #     print("right")
+            #     direction = "right"
+            # else:
+            #     direction = "GO"
+            #     print("GO")
+                # if len(right):
+                #     print("right")
+                #     direction = "RIGHT"
+                # else:
 
 
         # if count == 500:
