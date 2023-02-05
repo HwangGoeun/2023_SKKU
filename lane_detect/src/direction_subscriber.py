@@ -9,8 +9,8 @@ import rospy
 from std_msgs.msg import String
 
 def callback(msg):
-    print msg.data
+    print(msg.data)
     
 rospy.init_node('direction_subscriber')
-sub = rospy.Subscriber('direction', String, callback)
+sub = rospy.Subscriber('/direction', String, callback)
 rospy.spin()
