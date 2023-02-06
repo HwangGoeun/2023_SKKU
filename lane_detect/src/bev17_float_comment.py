@@ -8,7 +8,7 @@ import random
 import rospy
 from std_msgs.msg import String
 
-direction_pub = rospy.Publisher('/direction', String, queue_size=1)
+direction_pub = rospy.Publisher('/camera_direction', String, queue_size=1)
 
 width = 1280.0  # 카메라 가로사이즈
 height = 720.0  # 카메라 세로사이즈
