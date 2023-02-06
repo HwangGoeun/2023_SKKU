@@ -8,7 +8,7 @@ import random
 import rospy
 from std_msgs.msg import String
 
-direction_sub = rospy.Subscriber('/direction', String, callback)
+direction_sub = rospy.Subscriber('/camera_direction', String, callback)
 
 traffic_pub = rospy.Publisher('/color', String, queue_size=1)
 
