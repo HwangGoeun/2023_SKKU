@@ -84,7 +84,7 @@ def callback(msg):
         rate.sleep()
     
 rospy.init_node('direction_subscriber')
-sub = rospy.Subscriber('/direction', String, callback)
+sub = rospy.Subscriber('/camera_direction', String, callback)
 rospy.spin()
 
 
