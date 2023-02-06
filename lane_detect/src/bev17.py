@@ -17,7 +17,7 @@ min_y = 450
 max_x = width - 150
 max_y = height - 50
 
-cap = cv2.VideoCapture(2)              
+cap = cv2.VideoCapture(4)              
 cap.set(3,width)           #크롭사이즈
 cap.set(4,height)
 
@@ -26,7 +26,7 @@ brightness=10
 contrast=10
 saturation=10
 gain=10
-DETECT_VALUE = 180   #상대밝기
+DETECT_VALUE = 150   #상대밝기
 #----------------------------
 
 cap.set(cv2.CAP_PROP_BRIGHTNESS,brightness)    #카메라조도세팅
@@ -34,7 +34,7 @@ cap.set(cv2.CAP_PROP_CONTRAST,contrast)
 cap.set(cv2.CAP_PROP_SATURATION,saturation)
 cap.set(cv2.CAP_PROP_GAIN,gain)
 
-direction = "STOP"
+direction = "GO"
 
 while True : 
     
@@ -45,8 +45,8 @@ while True :
 
     
         
-    limited_polylines_list = [[min_x, max_y],  [max_x,max_y], [max_x-200, min_y], [min_x+200, min_y]]
-    limited_polylines_list_1 = [[min_x-2, max_y+2],  [max_x+2, max_y+2], [max_x+2-200, min_y-2], [min_x-2+200, min_y-2]]
+    limited_polylines_list = [[min_x, max_y],  [max_x,max_y], [max_x-200, min_y], [min_x+250, min_y]]
+    limited_polylines_list_1 = [[min_x-2, max_y+2],  [max_x+2, max_y+2], [max_x+2-200, min_y-2], [min_x-2+250, min_y-2]]
 
     pts = np.array(limited_polylines_list_1, np.int32)
     pts = pts.reshape((-1,1,2))
@@ -82,7 +82,7 @@ while True :
 
     print("LEFT :", left, "MID-LEFT", mid_left, "MID :", mid, "MID-RIGHT", mid_right, "RIGHT : ", right)
 
-    if mid < 2000000 : #x검검x
+    if mid < 3000000 : #x검검x
         if left < 2000000 and right < 2000000: #검검검검
             direction = "GO"
         else :
