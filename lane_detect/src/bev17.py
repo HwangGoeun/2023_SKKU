@@ -116,8 +116,8 @@ while True :
     # cv2.putText(frame, direction, (width/2,height/4), cv2.FONT_ITALIC, 1, (0,0,255), 2)
     cv2.imshow("Ground Truth",frame)
     # direction_pub.publish(direction)
-    if direction_change != direction :
-        direction_pub.publish(direction)
+    # if direction_change != direction :
+    direction_pub.publish(direction)
 
     k = cv2.waitKey(30) & 0xff   # ESC누르면 종료
     if k == 27: 
