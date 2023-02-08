@@ -66,26 +66,20 @@ while True:
     # cv2.imshow("ground truth",frame)
     cv2.imshow("color detection",limited_frame_copy)
     print("Green : ", mean_of_hue_g,"    RED : ", mean_of_hue_r)
-    if mean_of_hue_g < 100:
-       if mean_of_hue_r > 90:
-            color = "RED"
-            direction = "STOP"
-    else :
+    if mean_of_hue_g < 5 and mean_of_hue_r > 90:
+        color = "RED"
+        direction = "STOP"
+    elif mean_of_hue_g > 100 :
         color = "GREEN"
-        direction = "NO"
+        direction = "GO"
+    else :
+        pass
     traffic_pub.publish(color)
     direction_pub.publish(direction)
 
     k = cv2.waitKey(30) & 0xff   # ESC누르면 종료
     if k == 27: 
         break
-
-
-
-
-
-
-
 
 print("------------[SHUT DOWN]------------")
 cap.release()
