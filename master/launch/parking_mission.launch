@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="lane_detect" type="bev17.py" name="camera"> 
+        <remap from="/camera_direction" to="/direction" />
+    </node>
+</launch>
