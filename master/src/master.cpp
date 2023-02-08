@@ -35,6 +35,7 @@ void color_callback(const std_msgs::String::Ptr& sub_msg) {
     if(sub_msg->data == "GO"){
         selector = "camera";
     } else {
+        selector = "color";
         pub_master.publish(sub_msg);
     } 
 }
