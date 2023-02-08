@@ -29,6 +29,16 @@ void lidar_callback(const std_msgs::String::Ptr& sub_msg) {
     } 
 }
 
+void color_callback(const std_msgs::String::Ptr& sub_msg) {
+    ROS_INFO("color_callback : %s", sub_msg->data.c_str());
+
+    if(sub_msg->data == "GO"){
+        selector = "camera";
+    } else {
+        pub_master.publish(sub_msg);
+    } 
+}
+
 int main(int argc, char **argv) {
     ros::init(argc, argv, "master");
     ros::NodeHandle nh;
@@ -36,6 +46,7 @@ int main(int argc, char **argv) {
     pub_master = nh.advertise<std_msgs::String>("/direction", 1);
     ros::Subscriber sub_lidar = nh.subscribe("/lidar_direction", 1, lidar_callback);
     ros::Subscriber sub_camera = nh.subscribe("/camera_direction", 1, camera_callback);
+    ros::Subscriber sub_color = nh.subscribe("/color_direction", 1, color_callback);
 
     ros::Rate loop_rate(1000);
 
