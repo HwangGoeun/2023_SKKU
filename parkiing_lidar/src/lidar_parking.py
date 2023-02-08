@@ -31,7 +31,7 @@ def main():
     for scan in env.scanning():
         count += 1
 
-        left = env.getAngleDistanceRange(scan, 30, 60, 0, 500)
+        left = env.getAngleDistanceRange(scan, 260, 350, 0, 1000)
         # left2 = env.getAngleDistanceRange(scan, 0, 10, 600, 1000)
 
         # go = env.getAngleDistanceRange(scan, 10, 60, 0, 400)
