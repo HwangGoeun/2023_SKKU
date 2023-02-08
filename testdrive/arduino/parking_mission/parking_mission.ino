@@ -1,12 +1,10 @@
 #include <Car_Library.h>
-#include <ros.h>
-#include <std_msgs/String.h>
 
 //////////////////////////////////
 
-int left_motor_speed = 60; 
-int right_motor_speed = 100;
-int steering = 68;
+int left_motor_speed = 70; 
+int right_motor_speed = 70;
+int steering = 80;
 int left_steering = 255;
 int right_steering = 255; 
 
@@ -21,16 +19,14 @@ int motorB2_1 = 8;
 int motorB2_2 = 9;
 ///////////////////////////////////////////
 
-ros::NodeHandle nh;
-String motor_run;
-
 void move_go(){
   
   motor_backward(motorB1_1,motorB1_2,left_motor_speed);
   delay(100);
   motor_forward(motorB2_1,motorB2_2, right_motor_speed);
   delay(100);
-  
+ 
+  //motor_backward(motorA1_1,motorA1_2,steering);
   motor_hold(motorA1_1,motorA1_2);
   delay(100);
 
@@ -42,9 +38,10 @@ void move_left(){
   delay(100);
   motor_forward(motorB2_1,motorB2_2, right_motor_speed);
   delay(100);
-  
-  //motor_forward(motorA1_1,motorA1_2,left_steering);
-  //delay(100);  
+ // motor_forward(motorA1_1,motorA1_2,left_steering);
+ // delay(100);  
+   motor_hold(motorA1_1,motorA1_2);
+  delay(100);
 }
 
 void move_right(){
@@ -56,6 +53,9 @@ void move_right(){
   
   //motor_backward(motorA1_1,motorA1_2,right_steering);
   //delay(100);
+
+    motor_hold(motorA1_1,motorA1_2);
+  delay(100);
   
 }
 
@@ -80,6 +80,9 @@ void move_back_steering(){
   
   //motor_backward(motorA1_1,motorA1_2,right_steering);
   //delay(100);
+
+    motor_hold(motorA1_1,motorA1_2);
+  delay(100);
   
 }
 
@@ -90,26 +93,39 @@ void move_back(){
   motor_backward(motorB2_1,motorB2_2,right_motor_speed);
   delay(100);
   
-  //motor_backward(motorA1_1,motorA1_2,steering);
-  //delay(100);
+  //motor_hold(motorA1_1,motorA1_2);
+  //delay(1000);
+
+    motor_hold(motorA1_1,motorA1_2);
+  delay(100);
   
 }
 
 //
 
-void parking_cb(const std_msgs::String& msg) {
 
- 
-  motor_run=msg.data;
+void setup() {
+  // put your setup code here, to run once:
 
-  if (motor_run == "GO"){
-    move_go();
-    delay(100);
-  }
 
-  else if (motor_run == "PARKING"){
-      move_go();
-      delay(8000);
+  pinMode(motorA1_1, OUTPUT);
+  pinMode(motorA1_2, OUTPUT);
+  
+  pinMode(motorB1_1, OUTPUT);
+  pinMode(motorB1_2, OUTPUT);
+  
+  pinMode(motorB2_1, OUTPUT);
+  pinMode(motorB2_2, OUTPUT);
+
+  /*
+  motor_forward(motorA1_1,motorA1_2,255);
+  delay(500);
+  motor_backward(motorA1_1,motorA1_2,50);
+  delay(3000);
+
+  
+  move_go();
+      delay(14000);
       
       motor_forward(motorA1_1,motorA1_2,255);
       delay(1000);      
@@ -120,6 +136,11 @@ void parking_cb(const std_msgs::String& msg) {
       delay(2000);   
       //motor_forward(motorA1_1,motorA1_2,100);    
       //delay(2000); 
+      move_back_steering();
+      delay(8000);
+      
+      motor_forward(motorA1_1,motorA1_2,255);
+      delay(2000); 
       move_back_steering();
       delay(8000);
       
@@ -134,7 +155,7 @@ void parking_cb(const std_msgs::String& msg) {
       
 
       
-      motor_forward(motorA1_1,motorA1_2,255);
+      motor_forward(motorA1_1,motorA1_2,200);
       delay(1000);
       move_go();
       delay(2000);
@@ -143,40 +164,61 @@ void parking_cb(const std_msgs::String& msg) {
       delay(1000);
 
       move_go();
-      delay(15000);
-  }
+      delay(15000);*/
+  motor_forward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
+  motor_backward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
   
-}
+    motor_forward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
+  motor_backward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
 
-ros::Subscriber <std_msgs::String> sub("parking", &parking_cb);
-// ros::Subscriber <std_msgs::String> sub("color", &color_cb);
+    motor_forward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
+  motor_backward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
 
-void setup(){
-  
-  Serial.begin(57600);
-  
-  pinMode(motorA1_1, OUTPUT);
-  pinMode(motorA1_2, OUTPUT);
-  
-  pinMode(motorB1_1, OUTPUT);
-  pinMode(motorB1_2, OUTPUT);
-  
-  pinMode(motorB2_1, OUTPUT);
-  pinMode(motorB2_2, OUTPUT);
+  motor_forward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
+  motor_backward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
 
-  nh.initNode();
-  nh.subscribe(sub);
-  
   motor_forward(motorA1_1,motorA1_2,255);
-  delay(500);
-  motor_backward(motorA1_1,motorA1_2,63);
+  delay(1000);
+  move_go();
   delay(3000);
 
+  motor_backward(motorA1_1,motorA1_2,255);
+  delay(1000);
+   move_back();
+  delay(10000);
+
+  move_stop();
+  delay(10000);
+
+  
   
 }
 
-void loop(){
-  nh.spinOnce();
-  delay(1);
-  
+void loop() {
+  // put your main code here, to run repeatedly:
+
 }
