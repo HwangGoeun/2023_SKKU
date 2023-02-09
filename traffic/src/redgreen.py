@@ -34,6 +34,10 @@ direction = ""
 
 # traffic_pub = rospy.Publisher('/color', String, queue_size=1)
 direction_pub = rospy.Publisher('/color_direction', String, queue_size=1)
+
+red_count = 0
+green_count = 0
+
 while True: 
     rospy.init_node('trafficlight')
 
@@ -69,13 +73,14 @@ while True:
     print("Green : ", mean_of_hue_g,"    RED : ", mean_of_hue_r)
     if mean_of_hue_g < 5 and mean_of_hue_r > 100 and mean_of_hue_r < 110:
         # color = "RED"
-        direction = "STOP"
-    else : 
-        pass
-    if mean_of_hue_g > 60 :
-        direction = "GREEN"
-    else : 
-        pass
+        direction = "RED"
+        red_count += 1
+    else :
+        if mean_of_hue_g > 100:
+            direction = "GREEN"
+            green_count += 1
+        else :
+            direction = ""
     # traffic_pub.publish(color)
     direction_pub.publish(direction)
 

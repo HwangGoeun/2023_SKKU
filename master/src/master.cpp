@@ -32,12 +32,17 @@ void lidar_callback(const std_msgs::String::Ptr& sub_msg) {
 void color_callback(const std_msgs::String::Ptr& sub_msg) {
     ROS_INFO("color_callback : %s", sub_msg->data.c_str());
 
-    if(sub_msg->data == "GO"){
-        selector = "camera";
-    } else {
-        selector = "color";
+    if(sub_msg->data == "RED"){
+        selector = "red";
+        pub_master.publish(sub_msg);
+    }
+    if(sub_msg->data == "GREEN"){
+        selector = "green";
         pub_master.publish(sub_msg);
     } 
+    else {
+        selector = "camera";
+    }
 }
 
 int main(int argc, char **argv) {

@@ -1,6 +1,6 @@
 <launch>
     <node pkg="master" type="master" name="master"> </node>
-    <node pkg="lane_detect" type="bev17.py" name="camera"> </node>
+    <node pkg="lane_detect" type="bev17_wide.py" name="camera"> </node>
     <node pkg="lidar" type="main.py" name="lidar"> </node>
     <node pkg="traffic" type="redgreen.py" name="color"> </node>
 </launch>

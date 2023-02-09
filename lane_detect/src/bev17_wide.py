@@ -14,7 +14,7 @@ min_y = 450
 max_x = width - 150
 max_y = height - 50
 
-cap = cv2.VideoCapture(4)              
+cap = cv2.VideoCapture(0)              
 cap.set(3,width)           #크롭사이즈
 cap.set(4,height)
 
@@ -100,8 +100,8 @@ while True :
             else : #x검흰x
                 direction = "LEFT"                
     cv2.imshow("Ground Truth",frame)
-    if direction_change != direction :
-        direction_pub.publish(direction)
+    # if direction_change != direction :
+    direction_pub.publish(direction)
     k = cv2.waitKey(30) & 0xff   # ESC누르면 종료
     if k == 27: 
         direction = "LEFT"
