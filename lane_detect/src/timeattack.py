@@ -127,11 +127,25 @@ while True :
     if direction_change != direction :
         direction_pub.publish(direction)
 
-    k = cv2.waitKey(30) & 0xff   # ESC누르면 종료
-    if k == 27: 
+    k1 = cv2.waitKey(30) & 0xff   # ESC누르면 종료
+    if k1 == 27: 
+        break
+        
+    k2 = cv2.waitKey(30) & 0xff   # "s"누르면 시작
+    if k2 == 83: 
         direction = "LEFT"
         direction_pub.publish(direction)
         direction = "RIGHT"
+        direction_pub.publish(direction)
+
+    k3 = cv2.waitKey(30) & 0xff   # "1"누르면 "parking1"
+    if k3 == 49: 
+        direction = "parking1"
+        direction_pub.publish(direction)
+
+    k4 = cv2.waitKey(30) & 0xff   # "2"누르면 "parking2"
+    if k4 == 50: 
+        direction = "parking2"
         direction_pub.publish(direction)
         
 direction = "STOP"
