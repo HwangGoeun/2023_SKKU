@@ -11,12 +11,10 @@ parking_misiion_1이 2번째 칸에 주차고, parking_mission_2가 3번째 칸�
 
 아두이노 프로그램 업로드 후
 
+<pre>
 <code>
 rosrun rosserial_python serial_node.py _port:=/dev/ttyACM0 _baud:=57600
 </code>  
-  
-manual 모드 실행시 추가로 실행해줘야되는 launch 파일
-  
-$ rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+</pre>
 
 
