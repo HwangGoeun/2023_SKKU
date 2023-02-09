@@ -3,6 +3,7 @@
 import Function_Library as LiDAR
 import rospy
 from std_msgs.msg import String
+from time import time
 
 def main():
     rospy.init_node("RPLiDAR_sensing")
@@ -16,19 +17,28 @@ def main():
 
     env.getState()
 
-    count = 0
+    delay = 5
+    obstacle = 0
+    first_time = 0
 
     for scan in env.scanning():
         left = env.getAngleDistanceRange(scan, 280, 300, 0, 1300)
-        # left2 = env.getAngleDistanceRange(scan, 0, 10, 600, 1000)
+        
+        if len(left) and obstacle < 2:
+            if obstacle == 0:
+                direction = "obstacle1"
+                print("obstacle 1")
+                obstacle += 1
+                first_time = time.time()
 
-        # go = env.getAngleDistanceRange(scan, 10, 60, 0, 400)
-        # right = env.getAngleDistanceRange(scan, 11, 150, 0, 550)
-        # go2 = env.getAngleDistanceRange(scan, 61, 120, 0, 400)
+            if obstacle:
+                cur_time = time.time()
 
-        if len(left) and count == 0:
-            count += 1
-            direction = "obstacle"
+            if cur_time - first_time > delay:
+                if len(left):
+                    direction = "obstacle 2"
+                    print("obstacle 2")
+                    obstacle += 1
         else:
             direction = "NO"    # have to change "NO"
         
