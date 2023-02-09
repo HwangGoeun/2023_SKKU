@@ -165,6 +165,8 @@ void setup() {
 
       move_go();
       delay(15000);*/
+  
+  //1
   motor_forward(motorA1_1,motorA1_2,150);
   delay(1000);
   move_go();
@@ -174,6 +176,7 @@ void setup() {
   move_go();
   delay(1000);
   
+  //2
     motor_forward(motorA1_1,motorA1_2,150);
   delay(1000);
   move_go();
@@ -183,6 +186,8 @@ void setup() {
   move_go();
   delay(1000);
 
+  
+  //3
   motor_forward(motorA1_1,motorA1_2,150);
   delay(1000);
   move_go();
@@ -192,6 +197,8 @@ void setup() {
   move_go();
   delay(1000);
 
+  
+  //4
   motor_forward(motorA1_1,motorA1_2,150);
   delay(1000);
   move_go();
@@ -200,7 +207,8 @@ void setup() {
   delay(1000);
   move_go();
   delay(1000);
-
+  
+//
   motor_forward(motorA1_1,motorA1_2,255);
   delay(1000);
   move_go();
@@ -209,15 +217,15 @@ void setup() {
   motor_backward(motorA1_1,motorA1_2,255);
   delay(1000);
    move_back();
-  delay(11000);
+  delay(12000);
 
   move_stop();
-  delay(8000);
+  delay(5000);
 //////////////////////////////////////
   motor_backward(motorA1_1,motorA1_2,255);
   delay(3000);
   move_go();
-  delay(13000);
+  delay(15000);
   //
   motor_forward(motorA1_1,motorA1_2,150);
   delay(1000);
@@ -225,6 +233,8 @@ void setup() {
   delay(1000);
   motor_backward(motorA1_1,motorA1_2,150);
   delay(1000);
+  move_go();
+  delay(1000);
 
 
     motor_forward(motorA1_1,motorA1_2,150);
@@ -233,12 +243,7 @@ void setup() {
   delay(1000);
   motor_backward(motorA1_1,motorA1_2,150);
   delay(1000);
-
-    motor_forward(motorA1_1,motorA1_2,150);
-  delay(1000);
-  move_go();
-  delay(1000);
-  motor_backward(motorA1_1,motorA1_2,150);
+    move_go();
   delay(1000);
 
     motor_forward(motorA1_1,motorA1_2,150);
@@ -247,12 +252,7 @@ void setup() {
   delay(1000);
   motor_backward(motorA1_1,motorA1_2,150);
   delay(1000);
-
-    motor_forward(motorA1_1,motorA1_2,150);
-  delay(1000);
-  move_go();
-  delay(1000);
-  motor_backward(motorA1_1,motorA1_2,150);
+    move_go();
   delay(1000);
 
     motor_forward(motorA1_1,motorA1_2,150);
@@ -260,6 +260,26 @@ void setup() {
   move_go();
   delay(1000);
   motor_backward(motorA1_1,motorA1_2,150);
+  delay(1000);
+    move_go();
+  delay(1000);
+
+  motor_forward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
+  motor_backward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
+
+  motor_forward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
+  delay(1000);
+  motor_backward(motorA1_1,motorA1_2,150);
+  delay(1000);
+  move_go();
   delay(1000);
 
   
