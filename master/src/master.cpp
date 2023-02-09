@@ -10,42 +10,53 @@ ros::Publisher pub_master;
 std_msgs::String master_topic_msg;
 
 // topic from slave
-void camera_callback(const std_msgs::String::Ptr& sub_msg) {
+void camera_callback(const std_msgs::String::Ptr &sub_msg)
+{
     ROS_INFO("camera_callback : %s", sub_msg->data.c_str());
 
-    if(selector == "camera"){
+    if (selector == "camera")
+    {
         pub_master.publish(sub_msg);
     }
 }
 
-void lidar_callback(const std_msgs::String::Ptr& sub_msg) {
+void lidar_callback(const std_msgs::String::Ptr &sub_msg)
+{
     ROS_INFO("lidar_callback : %s", sub_msg->data.c_str());
 
-    if(sub_msg->data == "NO"){
+    if (sub_msg->data == "NO")
+    {
         selector = "camera";
-    } else {
+    }
+    else
+    {
         selector = "lidar";
         pub_master.publish(sub_msg);
-    } 
+    }
 }
 
-void color_callback(const std_msgs::String::Ptr& sub_msg) {
+void color_callback(const std_msgs::String::Ptr &sub_msg)
+{
     ROS_INFO("color_callback : %s", sub_msg->data.c_str());
 
-    if(sub_msg->data == "RED"){
+    if (sub_msg->data == "RED")
+    {
         selector = "red";
         pub_master.publish(sub_msg);
     }
-    if(sub_msg->data == "GREEN"){
+    else if (sub_msg->data == "GREEN")
+    {
         selector = "green";
         pub_master.publish(sub_msg);
-    } 
-    else {
+    }
+    else
+    {
         selector = "camera";
     }
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     ros::init(argc, argv, "master");
     ros::NodeHandle nh;
 
@@ -56,7 +67,8 @@ int main(int argc, char **argv) {
 
     ros::Rate loop_rate(1000);
 
-    while(ros::ok()) {
+    while (ros::ok())
+    {
         ros::spinOnce();
         loop_rate.sleep();
     }
