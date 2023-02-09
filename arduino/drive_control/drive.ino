@@ -23,6 +23,8 @@ int motorB2_2 = 9;
 
 ros::NodeHandle nh;
 String motor_run;
+//String color;
+
 
 void move_go(){
   
@@ -69,6 +71,15 @@ void move_stop(){
   delay(100);
 }
 
+//void color_cb(const std_msgs::String& msg) {
+//  color=msg.data;
+
+//  if (color == "GREEN"){
+//  move_go();
+//  delay(1000);
+//}
+//}
+
 void direction_cb(const std_msgs::String& msg) {
 
  
@@ -94,17 +105,19 @@ void direction_cb(const std_msgs::String& msg) {
 
   else if (motor_run == "obstacle") {
       move_left();
-      delay(10000);
+      delay(3000);
       move_go();
-      delay(20000);
+      delay(2500);
       move_right();
-      delay(10000);
+      delay(3000);
       move_go();
   }
   
 }
 
 ros::Subscriber <std_msgs::String> sub("direction", &direction_cb);
+
+//ros::Subscriber <std_msgs::String> sub( "color_direction", &color_cb);
 // ros::Subscriber <std_msgs::String> sub("color", &color_cb);
 
 void setup(){
