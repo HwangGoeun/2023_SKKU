@@ -1,9 +1,11 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include <time.h>
 
 using namespace std;
 
 string selector = "camera";
+time_t obs2_time = 9223372036854775807, cur_time = 0;
 
 ros::Publisher pub_master;
 
@@ -32,26 +34,33 @@ void lidar_callback(const std_msgs::String::Ptr &sub_msg)
     {
         selector = "lidar";
         pub_master.publish(sub_msg);
+
+        if (sub_msg->data == "obstacle2") {
+            obs2_time = time(NULL);
+        }
     }
 }
 
 void color_callback(const std_msgs::String::Ptr &sub_msg)
 {
-    ROS_INFO("color_callback : %s", sub_msg->data.c_str());
+    cur_time = time(NULL);
+    if(cur_time - obs2_time > 8) {
+        ROS_INFO("color_callback : %s", sub_msg->data.c_str());
 
-    if (sub_msg->data == "RED")
-    {
-        selector = "red";
-        pub_master.publish(sub_msg);
-    }
-    else if (sub_msg->data == "GREEN")
-    {
-        selector = "green";
-        pub_master.publish(sub_msg);
-    }
-    else
-    {
-        selector = "camera";
+        if (sub_msg->data == "RED")
+        {
+            selector = "red";
+            pub_master.publish(sub_msg);
+        }
+        else if (sub_msg->data == "GREEN")
+        {
+            selector = "green";
+            pub_master.publish(sub_msg);
+        }
+        else
+        {
+            selector = "camera";
+        }
     }
 }
 
