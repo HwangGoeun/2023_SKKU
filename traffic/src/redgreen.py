@@ -60,20 +60,21 @@ while True:
     hsv = cv2.cvtColor(limited_frame_copy, cv2.COLOR_BGR2HSV)
     hue,_,_ = cv2.split(hsv)
 
-    hue_g = cv2.inRange(hue,70, 90)  #초록색은 70-~90
-    hue_r = cv2.inRange(hue,0, 10)  #
+    hue_g = cv2.inRange(hue,70, 100)  #초록색은 70-~90
+    hue_r = cv2.inRange(hue,0, 5)  #
     mean_of_hue_g = cv2.mean(hue_g)[0]   #ROI 휴값 평균
     mean_of_hue_r = cv2.mean(hue_r)[0]   #ROI 휴값 평균
     # cv2.imshow("ground truth",frame)
     cv2.imshow("color detection",limited_frame_copy)
     print("Green : ", mean_of_hue_g,"    RED : ", mean_of_hue_r)
-    if mean_of_hue_g < 5 and mean_of_hue_r > 90:
+    if mean_of_hue_g < 5 and mean_of_hue_r > 100 and mean_of_hue_r < 110:
         # color = "RED"
         direction = "STOP"
-    elif mean_of_hue_g > 100 :
-        # color = "GREEN"
-        direction = "GO"
-    else :
+    else : 
+        pass
+    if mean_of_hue_g > 60 :
+        direction = "GREEN"
+    else : 
         pass
     # traffic_pub.publish(color)
     direction_pub.publish(direction)
