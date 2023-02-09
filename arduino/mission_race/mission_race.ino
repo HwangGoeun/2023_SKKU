@@ -119,6 +119,20 @@ void direction_cb(const std_msgs::String& msg) {
       move_go();
   }
   
+  else if (motor_run == "obstacle1") {
+      move_left();
+      delay(4000);
+      move_right();
+      delay(3000);
+  }
+  
+  else if (motor_run == "obstacle2") {
+      move_right();
+      delay(4000);
+      move_left();
+      delay(4000);
+  }
+  
   else if (motor_run == "parking1")
   {
     //1
