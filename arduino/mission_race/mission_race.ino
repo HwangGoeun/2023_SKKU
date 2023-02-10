@@ -4,9 +4,9 @@
 
 //////////////////////////////////
 
-int left_motor_speed = 110; 
-int right_motor_speed = 110;
-int steering = 80;
+int left_motor_speed = 115; 
+int right_motor_speed = 115;
+int steering = 70;
 int left_steering = 255;
 int right_steering = 255; 
 
@@ -65,9 +65,9 @@ void move_stop(){
 }
 
 void move_back(){
-  motor_forward(motorB1_1,motorB1_2,left_motor_speed);
+  motor_forward(motorB1_1,motorB1_2,70);
   delay(100);
-  motor_backward(motorB2_1,motorB2_2,right_motor_speed);
+  motor_backward(motorB2_1,motorB2_2,70);
   delay(100);
   
   motor_hold(motorA1_1,motorA1_2);
@@ -108,29 +108,28 @@ void direction_cb(const std_msgs::String& msg) {
   else if (motor_run == "GO"){
       move_go();
   }
-
+  
   else if (motor_run == "obstacle") {
       move_left();
-      delay(3000);
-      move_go();
-      delay(2500);
+      delay(4000);
       move_right();
-      delay(3000);
-      move_go();
-  }
+      delay(2000);
   
-  else if (motor_run == "obstacle1") {
       move_left();
-      delay(4000);
+      delay(1000);
       move_right();
-      delay(3000);
-  }
-  
-  else if (motor_run == "obstacle2") {
-      move_right();
-      delay(4000);
+      delay(1000);
+
       move_left();
-      delay(4000);
+      delay(1000);
+      move_right();
+      delay(1000);
+      
+      move_right();
+      delay(3500);
+      
+      move_left();
+      delay(1000);
   }
   
   else if (motor_run == "parking1")
@@ -176,7 +175,7 @@ void direction_cb(const std_msgs::String& msg) {
     move_parking_go();
     delay(1000);
   
-    / /
+    //
     motor_forward(motorA1_1,motorA1_2,255);
     delay(1000);
     move_parking_go();
@@ -194,7 +193,7 @@ void direction_cb(const std_msgs::String& msg) {
     delay(3000);
     move_parking_go();
     delay(15000);
-    /   /
+    //
     motor_forward(motorA1_1,motorA1_2,150);
     delay(1000);
     move_parking_go();
@@ -304,7 +303,7 @@ void direction_cb(const std_msgs::String& msg) {
     move_parking_go();
     delay(1000);
 
-    / /
+    //
     motor_forward(motorA1_1,motorA1_2,255);
     delay(1000);
     move_parking_go();
@@ -323,7 +322,7 @@ void direction_cb(const std_msgs::String& msg) {
     delay(3000);
     move_parking_go();
     delay(15000);
-    / /
+    //
     motor_forward(motorA1_1,motorA1_2,150);
     delay(1000);
     move_parking_go();
@@ -410,35 +409,3 @@ void loop(){
 
 
   
-  
-}
-
-ros::Subscriber <std_msgs::String> sub("direction", &direction_cb);
-
-//ros::Subscriber <std_msgs::String> sub( "color_direction", &color_cb);
-// ros::Subscriber <std_msgs::String> sub("color", &color_cb);
-
-void setup(){
-  
-  Serial.begin(57600);
-  
-  pinMode(motorA1_1, OUTPUT);
-  pinMode(motorA1_2, OUTPUT);
-  
-  pinMode(motorB1_1, OUTPUT);
-  pinMode(motorB1_2, OUTPUT);
-  
-  pinMode(motorB2_1, OUTPUT);
-  pinMode(motorB2_2, OUTPUT);
-
-  nh.initNode();
-  nh.subscribe(sub);
-
-  
-}
-
-void loop(){
-  nh.spinOnce();
-  delay(1);
-  
-}
