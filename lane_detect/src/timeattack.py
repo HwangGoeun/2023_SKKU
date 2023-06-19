@@ -42,7 +42,7 @@ while True :
 
     
         
-    limited_polylines_list = [[min_x, max_y],  [max_x,max_y], [max_x, min_y], [min_x+200, min_y]]
+    limited_polylines_list = [[min_x, max_y],  [max_x,max_y], [max_x, min_y], [min_x+200, min_y]]   #generate square polylines
     limited_polylines_list_1 = [[min_x-2, max_y+2],  [max_x+2, max_y+2], [max_x+2, min_y-2], [min_x-2+200, min_y-2]]
 
     pts = np.array(limited_polylines_list_1, np.int32)
@@ -53,11 +53,11 @@ while True :
     matSrc = np.float32(limited_polylines_list)
     matDst = np.float32([[0,height], [width,height], [width,0], [0,0]])
     matAffine = cv2.getPerspectiveTransform(matSrc,matDst)
-    limited_frame = cv2.warpPerspective(frame,matAffine,(width,height))
+    limited_frame = cv2.warpPerspective(frame,matAffine,(width,height)) #change user view (if you want to chage view as bird eye view, change code)
 
-    gray_frame = cv2.cvtColor(limited_frame, cv2.COLOR_RGB2GRAY)   
+    gray_frame = cv2.cvtColor(limited_frame, cv2.COLOR_RGB2GRAY)   #chage frame grb to grayscale
     
-    dst_retval, dst_binaryzation = cv2.threshold(gray_frame, DETECT_VALUE, 255, cv2.THRESH_BINARY)  
+    dst_retval, dst_binaryzation = cv2.threshold(gray_frame, DETECT_VALUE, 255, cv2.THRESH_BINARY)  #chage frame grayscale to binary
     dst_binaryzation = cv2.erode(dst_binaryzation, None, iterations=1)   
     
     # leftLine = cv2.line(dst_binaryzation, (width/4, 0), (width/4, height), (0, 255, 0), 2, cv2.LINE_AA)
@@ -66,14 +66,14 @@ while True :
     
     cv2.imshow("binaryzation",dst_binaryzation)              #차선인식
 
-    histogram = list(np.sum(dst_binaryzation[:, :], axis=0)) 
+    histogram = list(np.sum(dst_binaryzation[:, :], axis=0))    #sum binary
     histogram_length = len(histogram)
    
-    left = int(np.sum(histogram[:int(histogram_length/4)]))
-    mid_left = int(np.sum(histogram[int(histogram_length/4):int(2*histogram_length/4)]))
-    mid_right = int(np.sum(histogram[int(2*histogram_length/4):int(3*histogram_length/4)]))
+    left = int(np.sum(histogram[:int(histogram_length/4)])) #left quater
+    mid_left = int(np.sum(histogram[int(histogram_length/4):int(2*histogram_length/4)]))   
+    mid_right = int(np.sum(histogram[int(2*histogram_length/4):int(3*histogram_length/4)])) 
     mid = int(np.sum(histogram[int(1*histogram_length/4):int(3*histogram_length/4)]))
-    right = int(np.sum(histogram[int(3*histogram_length/4):]))
+    right = int(np.sum(histogram[int(3*histogram_length/4):]))  #right quater
     full = int(np.sum(histogram[:]))
     
     rospy.init_node('direction_publisher')

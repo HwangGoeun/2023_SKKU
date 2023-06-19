@@ -61,8 +61,8 @@ while True:
     limited_frame = cv2.warpPerspective(frame,matAffine,(width,height))
 
     limited_frame_copy = limited_frame.copy()
-    hsv = cv2.cvtColor(limited_frame_copy, cv2.COLOR_BGR2HSV)
-    hue,_,_ = cv2.split(hsv)
+    hsv = cv2.cvtColor(limited_frame_copy, cv2.COLOR_BGR2HSV)   #frame change rgb to hsv
+    hue,_,_ = cv2.split(hsv)    #use only hue
 
     hue_g = cv2.inRange(hue,70, 100)  #초록색은 70-~90
     hue_r = cv2.inRange(hue,0, 5)  #
