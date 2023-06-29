@@ -1,6 +1,6 @@
 <launch>
     <node pkg="master" type="master" name="master"> </node>
-    <node pkg="lane_detect" type="timeattack.py" name="camera"> </node>
-    <node pkg="lidar" type="main.py" name="lidar"> </node>
-    <node pkg="traffic" type="redgreen.py" name="color"> </node>
+    <node pkg="lane_detect" type="lane.py" name="camera"> </node>
+    <node pkg="lidar" type="lidar.py" name="lidar"> </node>
+    <node pkg="traffic" type="trafficlight.py" name="color"> </node>
 </launch>
